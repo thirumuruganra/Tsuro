@@ -1,0 +1,5 @@
+WIN_WIDTH = 1500
+WIN_HEIGHT = 800
+BOARD_LEN = 600
+
+IMG_DIR = 'images'
