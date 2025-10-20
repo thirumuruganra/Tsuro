@@ -10,7 +10,6 @@ This project uses Python with a lightweight graphics shim over Arcade for a CS11
 - How to Play (Rules)
 - Controls (This Implementation)
 - Run Locally
-- Export a Standalone Build
 - Configuration
 - Project Structure
 - Credits
@@ -56,13 +55,13 @@ Notes
 
 ## Run Locally
 
-This repo already includes a virtual environment example in `myenv/`. If you prefer a fresh environment:
+This repository does not include a virtual environment. Create one and install dependencies with the provided requirements file:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
-pip install arcade==2.6.17
+pip install -r requirements.txt
 ```
 
 Then launch the game:
@@ -72,19 +71,6 @@ python game.py
 ```
 
 If the window size or assets don’t look right, see Configuration below.
-
-## Export a Standalone Build
-
-We provide a Linux build script using PyInstaller and a short export guide:
-
-- See `README_EXPORT.md` for detailed steps (Linux, Windows, macOS).
-- Quick Linux build:
-
-```bash
-./scripts/build_linux.sh
-```
-
-This produces a runnable bundle under `dist/Tsuro/`.
 
 ## Configuration
 
@@ -106,12 +92,13 @@ Visual & UI notes:
 - `constants.py` — sizes and assets
 - `images/` — sprites and textures
 - `matches.txt` — tile connection logic
-- `README_EXPORT.md` — export steps with PyInstaller
-- `scripts/build_linux.sh` — one-shot Linux build script
+- `requirements.txt` — Python dependencies
 
 ## Credits
 
 - Board game Tsuro designed by Tom McMurchie.
 - This software is for educational/demonstration purposes and is not an official product of the Tsuro IP holders.
 
-If you have suggestions or find bugs (e.g., clicks/rotation not registering for your device), feel free to open an issue or share steps to reproduce.
+## Team
+- Thirumurugan RA - 3122235001149
+- Vishal Muralidharan - 3122235001162
