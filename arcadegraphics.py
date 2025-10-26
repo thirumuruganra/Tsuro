@@ -1,7 +1,5 @@
 import arcade
 import arcade.color
-import math
-
 
 # Simple mouse event object compatible with classes.py expectations
 class _MouseEvent:
@@ -14,13 +12,13 @@ class _MouseEvent:
     def get_button(self):
         # Map arcade button constants to string names if necessary
         return self._button
+    
     def get_mouse_location(self):
         return (self._x, self._y)
 
     def _set_mouse_location(self, x, y):
         self._x = x
         self._y = y
-
 
 def _resolve_color(color):
     """Resolve a color name or tuple used in the original code into an
@@ -68,9 +66,6 @@ def _map_button(button):
     # Fallback to string conversion
     return str(button)
 
-#-------------------------------------------------------------------------------
-# Window Wrapper (equivalent to cs110graphics.Window)
-#-------------------------------------------------------------------------------
 class Window(arcade.Window):
     def __init__(self, width=400, height=400, background="white", title="Graphics Window", first_function=None):
         super().__init__(width, height, title)
@@ -194,11 +189,6 @@ class Window(arcade.Window):
                     handler.handle_key_release(key)
                 except Exception:
                     pass
-
-
-#-------------------------------------------------------------------------------
-# EventHandler Equivalent
-#-------------------------------------------------------------------------------
 class EventHandler:
     def handle_key_press(self, key):
         pass
@@ -206,10 +196,6 @@ class EventHandler:
     def handle_key_release(self, key):
         pass
 
-
-#-------------------------------------------------------------------------------
-# Basic Shape Classes (Polygon, Circle, Rectangle, Square, Text, Image)
-#-------------------------------------------------------------------------------
 class Rectangle:
     def __init__(self, window, width=80, height=120, center=(200, 200), color=arcade.color.WHITE):
         self.window = window
@@ -238,7 +224,6 @@ class Rectangle:
         self.center_x += dx
         self.center_y += dy
 
-    # cs110graphics-like helpers used by classes.py
     def move_to(self, center):
         self.center_x, self.center_y = center
 
@@ -266,11 +251,9 @@ class Rectangle:
         half_h = self.height / 2
         return (self.center_x - half_w) <= x <= (self.center_x + half_w) and (self.center_y - half_h) <= y <= (self.center_y + half_h)
 
-
 class Square(Rectangle):
     def __init__(self, window, side_length=80, center=(200, 200), color=arcade.color.WHITE):
         super().__init__(window, side_length, side_length, center, color)
-
 
 class Circle:
     def __init__(self, window, radius=40, center=(200, 200), color=arcade.color.WHITE):
@@ -319,8 +302,6 @@ class Circle:
         dx = x - self.center_x
         dy = y - self.center_y
         return dx * dx + dy * dy <= self.radius * self.radius
-
-
 class Polygon:
     def __init__(self, window, points, color=arcade.color.WHITE):
         self.window = window
@@ -329,14 +310,11 @@ class Polygon:
         self.depth = 0
 
     def draw(self):
-        # points are expected in cs110 coords; convert each y
         conv = [(x, self.window.height - y) for (x, y) in self.points]
         arcade.draw_polygon_filled(conv, self.color)
 
     def set_depth(self, depth):
         self.depth = depth
-
-
 class Text:
     def __init__(self, window, text, size=12, center=(200, 200), color=arcade.color.BLACK):
         self.window = window
@@ -369,8 +347,6 @@ class Text:
         half_w = w / 2
         half_h = h / 2
         return (self.center_x - half_w) <= x <= (self.center_x + half_w) and (self.center_y - half_h) <= y <= (self.center_y + half_h)
-
-
 class Image:
     def __init__(self, window, image_loc, width=100, height=100, center=(200, 200)):
         self.window = window
@@ -427,10 +403,6 @@ class Image:
         # No-op for image compatibility
         pass
 
-
-#-------------------------------------------------------------------------------
-# StartGraphicsSystem Equivalent
-#-------------------------------------------------------------------------------
 def StartGraphicsSystem(first_function, width=400, height=400, background="white", name="Graphics Window"):
     window = Window(width, height, background, name, first_function)
     arcade.run()

@@ -2,7 +2,6 @@ from random import choice
 from arcadegraphics import *
 from constants import WIN_WIDTH, WIN_HEIGHT, BOARD_LEN, IMG_DIR
 from helpers import load_matches
-
 class Game:
     """ The Game class that controls all the other classes. """
 
@@ -48,9 +47,9 @@ class Game:
         # Making a popup window to get the amount of players
         Popup(self._win, self)
 
-        # Message for players to look at their starting 3 tiles
+        # Prepare (but do not yet show) the initial prompt window; it will be
+        # displayed after players choose the player count.
         self._initial_msg = self.initial_view()
-        self.display_initial_view()
 
         # Make the cells on the board
         side_coord = [150, 250, 350, 450, 550, 650]
@@ -325,7 +324,7 @@ class Game:
     def initial_view(self):
         """ Make a window to prompt players to look at their tiles. """
 
-        ract = Rectangle(self._win, 450, 150, (-1100, 380))
+        ract = Rectangle(self._win, 500, 200, (-1100, 380))
         ract.set_depth(46)
         txt = "Please view your starting tiles and choose a starting location! "
         msg = Text(self._win, txt, 12, (-1100, 330))
@@ -669,7 +668,7 @@ class Popup:
         self._popup_window.set_depth(10)
         self._popup.append(self._popup_window)
         self._message1 = "Please choose the number of players (2-8): "
-        self._text1 = Text(self._win, self._message1, 20, (1150, 300))
+        self._text1 = Text(self._win, self._message1, 17, (1150, 312.5))
         self._text1.set_depth(9)
         self._popup.append(self._text1)
         self._message2 = "Welcome to Tsuro!"
@@ -697,6 +696,10 @@ class Popup:
 
         # Calls the game to make players
         self._game.make_players(number)
+
+        # Now that the popup will be removed, display the initial prompt
+        # for viewing starting tiles and choosing starting locations.
+        self._game.display_initial_view()
 
         # Remove everything in this popup
         for element in self._clickables:
@@ -787,7 +790,7 @@ class Player(EventHandler):
             self._win.add(element)
 
         # Create clickable button to set piece
-        self._box = Rectangle(self._win, 600, 50, (400, 750))
+        self._box = Rectangle(self._win, 650, 50, (400, 750))
         self._box.set_fill_color(color)
         self._box.set_depth(8 + 2 * number)
         prompt = "Player " + self._player_id + \
@@ -809,14 +812,14 @@ class Player(EventHandler):
         self._in_game_win.set_depth(40)
         in_game_txt1 = "Player " + self._player_id + \
             ", please pick a tile to place on the board."
-        self._in_game_msg1 = Text(self._win, in_game_txt1, 14, (1100, -330))
+        self._in_game_msg1 = Text(self._win, in_game_txt1, 12, (1100, -330))
         self._in_game_msg1.set_depth(39)
         in_game_txt2 = "LEFT CLICK a tile then LEFT CLICK a location on the" + \
             " board to place it there."
-        self._in_game_msg2 = Text(self._win, in_game_txt2, 12, (1100, -466))
+        self._in_game_msg2 = Text(self._win, in_game_txt2, 10, (1100, -466))
         self._in_game_msg2.set_depth(39)
         in_game_txt3 = "RIGHT CLICK the tile to rotate."
-        self._in_game_msg3 = Text(self._win, in_game_txt3, 12, (1100, -500))
+        self._in_game_msg3 = Text(self._win, in_game_txt3, 10, (1100, -500))
         self._in_game_msg3.set_depth(39)
 
         self._in_game_prompt = [self._in_game_win, self._in_game_msg1, \
