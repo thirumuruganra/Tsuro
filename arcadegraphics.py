@@ -174,28 +174,6 @@ class Window(arcade.Window):
             if hasattr(handler, 'handle_mouse_release'):
                 handler.handle_mouse_release(evt)
 
-    def on_key_press(self, key, modifiers):
-        for _, handler in self.handlers:
-            if hasattr(handler, 'handle_key_press'):
-                try:
-                    handler.handle_key_press(key)
-                except Exception:
-                    pass
-
-    def on_key_release(self, key, modifiers):
-        for _, handler in self.handlers:
-            if hasattr(handler, 'handle_key_release'):
-                try:
-                    handler.handle_key_release(key)
-                except Exception:
-                    pass
-class EventHandler:
-    def handle_key_press(self, key):
-        pass
-
-    def handle_key_release(self, key):
-        pass
-
 class Rectangle:
     def __init__(self, window, width=80, height=120, center=(200, 200), color=arcade.color.WHITE):
         self.window = window

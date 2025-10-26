@@ -475,13 +475,11 @@ class Game:
             element.move_to((-1100, -600))
 
 
-class Cell(EventHandler):
+class Cell():
     """ Cells on the board and can provide a move_to location for the tile. """
 
     def __init__(self, win, game, location):
         """ The Constructor for Tile class. """
-
-        EventHandler.__init__(self)
 
         self._win = win
         self._game = game
@@ -518,14 +516,12 @@ class Cell(EventHandler):
 
         return self._location
 
-
-class Tile(EventHandler):
+class Tile():
     """ Tile class that interactive and carries the location logic. """
 
     def __init__(self, win, game, number, coord):
         """ The Constructor for Tile class. """
 
-        EventHandler.__init__(self)
 
         self._win = win
         self._game = game
@@ -722,13 +718,11 @@ class Popup:
             self._win.remove(element)
 
 
-class Popupclicks(EventHandler):
+class Popupclicks():
     """ Clickable Objects on the popups. """
 
     def __init__(self, win, popup, center, color, no):
         """ The Constructor for Popup class. """
-
-        EventHandler.__init__(self)
 
         self._win = win
         self._popup = popup
@@ -761,13 +755,11 @@ class Popupclicks(EventHandler):
             self._win.remove(entry)
 
 
-class Player(EventHandler):
+class Player():
     """ Player class that controls the movement of markers on the board. """
 
     def __init__(self, win, number, game):
         """ The Constructor for Player class. """
-
-        EventHandler.__init__(self)
 
         self._win = win
         self._game = game
