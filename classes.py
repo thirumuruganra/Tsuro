@@ -13,6 +13,12 @@ class Game:
         self._players_list = []
         self._active_players = []
 
+        # Theme colors (ancient scroll)
+        self._parchment = '#efe2c2'   # panel background
+        self._parchment_btn = '#e8dec5'  # buttons
+        self._ink = '#2f2a1e'         # text/border ink
+        self._accent_blue = '#6B8BA4' # subtle selection accent
+
         # Dicationaries that controls markers' movement
         # Need 2 dict - each spot on the board corresponds to two other spots
         self._loc_dict1 = {}
@@ -24,7 +30,7 @@ class Game:
 
         # Adding background image
         self._bkg = Image(
-            self._win, IMG_DIR + '/bkg.jpg', WIN_WIDTH, WIN_HEIGHT, (750, 400))
+            self._win, IMG_DIR + '/bkg2.png', WIN_WIDTH, WIN_HEIGHT, (750, 400))
         self._bkg.set_depth(50)
         self._win.add(self._bkg)
 
@@ -57,7 +63,10 @@ class Game:
         self._cells = [Cell(self._win, self, coord) for coord in cell_coord]
 
         # Make warnings for illegal placement of pieces and tiles
+
         w_overlap_box = Rectangle(self._win, 600, 50, (-1100, -600))
+        w_overlap_box.set_fill_color(self._parchment)
+        w_overlap_box.set_border_color(self._ink)
         w_overlap_box.set_depth(2)
         w_overlap_text = Text(self._win, \
             "WARNING: You cannot place your piece here, this spot is taken!", \
@@ -69,6 +78,8 @@ class Game:
             self._win.add(element)
 
         w_placement_box = Rectangle(self._win, 600, 50, (-1100, -600))
+        w_placement_box.set_fill_color(self._parchment)
+        w_placement_box.set_border_color(self._ink)
         w_placement_box.set_depth(2)
         w_placement_text = Text(self._win, \
             "WARNING: You can only place a tile next to your piece!", \
@@ -325,6 +336,8 @@ class Game:
         """ Make a window to prompt players to look at their tiles. """
 
         ract = Rectangle(self._win, 500, 200, (-1100, 380))
+        ract.set_fill_color(self._parchment)
+        ract.set_border_color(self._ink)
         ract.set_depth(46)
         txt = "Please view your starting tiles and choose a starting location! "
         msg = Text(self._win, txt, 12, (-1100, 330))
@@ -576,9 +589,9 @@ class Tile(EventHandler):
 
                 # then highlight the Tile's border:
                 self._clicked = True
-                self._frame.set_border_width(15)
-                # Selection color updated to requested light blue
-                self._frame.set_border_color('#90D5FF')
+                self._frame.set_border_width(5)
+                # Selection color updated to muted ink-blue accent for scroll theme
+                self._frame.set_border_color('#9bc3ab')
                 self._game.unclick_all_other(self._id_n)
             else:
 
@@ -664,7 +677,8 @@ class Popup:
 
         self._popup = []
         self._popup_window = Rectangle(self._win, 550, 400, self._center)
-        self._popup_window.set_fill_color('lavender')
+        self._popup_window.set_fill_color('#efe2c2')  # parchment panel
+        self._popup_window.set_border_color('#5a4a3b')  # ink border
         self._popup_window.set_depth(10)
         self._popup.append(self._popup_window)
         self._message1 = "Please choose the number of players (2-8): "
@@ -682,8 +696,8 @@ class Popup:
         self._clickables = []
         ctr_list = [(962, 400), (1087, 400), (1212, 400), (1337, 400)] + \
             [(962, 500), (1087, 500), (1212, 500), (1337, 500)]
-        col_list = ["gray", "white", "green", "blue", \
-            "red", "yellow", "cyan", "purple"]
+        # Neutral parchment buttons for all counts (remove bright colors)
+        col_list = ['#e8dec5'] * 8
 
         # Only allow 2-8 players (remove 1-player option)
         for num in range(7):  # indices 0..6
@@ -722,6 +736,8 @@ class Popupclicks(EventHandler):
 
         self._box = Square(self._win, 60, center)
         self._box.set_fill_color(color)
+        self._box.set_border_color('#5a4a3b')
+        self._box.set_border_width(2)
         self._box.set_depth(8)
         self._text = Text(self._win, str(self._id), 15, center)
         self._text.set_depth(7)
@@ -776,12 +792,12 @@ class Player(EventHandler):
             self._initial_loc.append((100, y2))
 
         # Create the graphic part of the markers:
-        self._color_list = ["gray", "white", "green", "blue", \
-            "red", "yellow", "cyan", "purple"]
-        color = self._color_list[number]
+        # All player pieces use the requested theme color
+        marker_color = '#9bc3ab'
+        panel_color = '#efe2c2'  # parchment panels
 
         self._marker = Circle(self._win, 12, (133, 100))
-        self._marker.set_fill_color(color)
+        self._marker.set_fill_color(marker_color)
         self._marker.set_depth(6 + 2 * number)
         self._text = Text(self._win, self._player_id, 12, (133, 100))
         self._text.set_depth(5 + 2 * number)
@@ -791,7 +807,8 @@ class Player(EventHandler):
 
         # Create clickable button to set piece
         self._box = Rectangle(self._win, 650, 50, (400, 750))
-        self._box.set_fill_color(color)
+        self._box.set_fill_color(panel_color)
+        self._box.set_border_color('#5a4a3b')
         self._box.set_depth(8 + 2 * number)
         prompt = "Player " + self._player_id + \
             ", LEFT CLICK HERE to move your piece clockwise, " + \
@@ -808,7 +825,8 @@ class Player(EventHandler):
 
         # Create in game instrucation window
         self._in_game_win = Rectangle(self._win, 555, 250, (1100, -400))
-        self._in_game_win.set_fill_color(color)
+        self._in_game_win.set_fill_color(panel_color)
+        self._in_game_win.set_border_color('#5a4a3b')
         self._in_game_win.set_depth(40)
         in_game_txt1 = "Player " + self._player_id + \
             ", please pick a tile to place on the board."
@@ -923,13 +941,15 @@ def winner(win, player_id):
 
     # Winner message "window"
     box_winner = Rectangle(win, 400, 40, (1100, 400))
+    box_winner.set_fill_color('#efe2c2')
+    box_winner.set_border_color('#5a4a3b')
     box_winner.set_depth(2)
     # box_winner.set_fill_color("black")
     win.add(box_winner)
 
     # Winner message text that matches that player's color
-    color_list = ["gray", "white", "green", "blue", \
-        "red", "yellow", "cyan", "purple"]
+    color_list = ['#3b3b3b','#5c5346','#2f5d43','#2d4f6c',
+        '#7a3f2c','#8a6b2f','#4a5568','#5e3a4a']
     txt = "Player " + player_id + " is the winner! Congratulations!"
     msg_winner = Text(win, txt, 14, (1100, 400))
     # msg_winner.set_color(color_list[int(player_id) - 1])
@@ -941,6 +961,8 @@ def tie(win):
     """ Message for a tied game. """
 
     box_tie = Rectangle(win, 300, 40, (1100, 400))
+    box_tie.set_fill_color('#efe2c2')
+    box_tie.set_border_color('#5a4a3b')
     box_tie.set_depth(2)
     win.add(box_tie)
     msg_tie = Text(win, "It's a tie! No winner...", 20, (1100, 400))
