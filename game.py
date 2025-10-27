@@ -1,5 +1,5 @@
 from arcadegraphics import StartGraphicsSystem
-from classes import Game
+from game_logic import Game
 from constants import WIN_WIDTH, WIN_HEIGHT
 
 def main(win):
