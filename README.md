@@ -1,104 +1,231 @@
-# Tsuro (Python/Arcade)
+# 🐉 Tsuro - The Game of the Path
 
-An interactive adaptation of the board game Tsuro (original design by Tom McMurchie). Place tiles to extend your path and keep your marker on the board—while nudging others off the edge.
+<div align="center">
 
-This project uses Python with a lightweight graphics shim over Arcade for a CS110-style API. It supports 2–8 players on a single computer.
+![Python Version](https://img.shields.io/badge/python-3.11%2B-blue)
+![Arcade](https://img.shields.io/badge/arcade-2.6.17-orange)
+![License](https://img.shields.io/badge/license-Educational-green)
 
-## Table of Contents
+*An elegant digital adaptation of the classic board game Tsuro*
 
-- Overview
-- How to Play (Rules)
-- Controls (This Implementation)
-- Run Locally
-- Configuration
-- Project Structure
-- Credits
+**Place tiles. Extend paths. Stay on the board. Be the last one standing.**
 
-## Overview
+[Overview](#-overview) • [How to Play](#-how-to-play) • [Installation](#-installation) • [Controls](#-controls) • [Project Structure](#-project-structure)
 
-In Tsuro, each player has a marker on the board’s edge. On your turn, you place one tile adjacent to your own marker. The tile’s paths connect and extend your marker’s route; your marker (and possibly others) then travels along the connected path until it cannot move further. If a marker exits the board’s boundary, that player is eliminated. The last player remaining wins (or the game may end in a tie).
+</div>
 
-## How to Play (Rules)
+---
 
-1) Setup
-- Choose number of players (2–8).
-- Each player sets a starting position by moving clockwise around the border and right-clicking to confirm.
-- Each player draws a hand of three tiles.
+## 📖 Overview
 
-2) Your Turn
-- Select a tile from your hand (left-click to toggle selection; a light-blue border #90D5FF indicates selection).
-- Right-click the selected tile to rotate it 90° (repeat as needed).
-- Left-click a board cell adjacent to your marker to place the tile.
+Tsuro (original design by Tom McMurchie) is a beautifully strategic tile-laying game where players guide their markers along an ever-changing path. This Python implementation brings the game to life with:
 
-3) Movement
-- After a tile is placed, all markers that can move follow the connected path automatically until no further movement is possible.
-- If a marker’s path leaves the board, that player is eliminated.
+- 🎨 **Ancient scroll theme** with parchment panels and ink-style borders
+- 👥 **2-8 player support** on a single computer
+- 🎯 **Simple, intuitive controls** with mouse-based interaction
+- 🏗️ **Modular architecture** for easy maintenance and extension
+- 🎮 **CS110-style graphics API** built on Python Arcade
 
-4) Drawing Tiles and the Dragon Tile
-- Players draw back up to three tiles if possible. When the tile pile is empty, the dragon tile indicates who will draw next as tiles become available again.
+## 🎮 How to Play
 
-5) End of Game
-- The last remaining player wins.
-- If all remaining players exit the board simultaneously, the game ends in a tie.
+### 🎯 Game Rules
 
-## Controls (This Implementation)
+#### 1️⃣ Setup Phase
+- **Choose players**: Select 2-8 players from the welcome screen
+- **Position markers**: Each player cycles through border positions (left-click to move clockwise)
+- **Confirm position**: Right-click to lock in your starting location
+- **Initial hand**: Each player receives 3 tiles to begin
 
-- Mouse left-click on your hand tile: select/unselect the tile (border turns light blue #90D5FF).
-- Mouse right-click on your hand tile: rotate it 90° clockwise.
-- Mouse left-click on a board cell next to your marker: place the selected tile there (if the placement is legal); otherwise, a warning will appear.
-- During setup (before the first round):
-	- Left-click the colored banner near the top to cycle your marker clockwise along border positions.
-	- Right-click the same banner to confirm your starting position.
+#### 2️⃣ Playing Your Turn
+1. **Select a tile**: Left-click a tile in your hand (mint-green border `#9bc3ab` appears)
+2. **Rotate (optional)**: Right-click the selected tile to rotate 90° clockwise
+3. **Place the tile**: Left-click an empty board cell adjacent to your marker
 
-Notes
-- On some trackpads, you may need to enable “secondary click” (two-finger tap or bottom-right click) to send a right-click.
+#### 3️⃣ Automatic Movement
+- All markers follow their connected paths automatically
+- Movement continues until the path ends or leaves the board
+- Markers that exit the board eliminate that player
 
-## Run Locally
+#### 4️⃣ Tile Management
+- Players automatically draw back up to 3 tiles each turn
+- When the pile is empty, the **Dragon Tile** appears
+- The dragon tile indicates who will receive the next available tile
 
-This repository does not include a virtual environment. Create one and install dependencies with the provided requirements file:
+#### 5️⃣ Victory Conditions
+- ✨ **Win**: Be the last player remaining on the board
+- 🤝 **Tie**: If all remaining players exit simultaneously
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
+## 🎮 Controls
+
+### Mouse Actions
+
+| Action | Control | Description |
+|--------|---------|-------------|
+| **Select Tile** | Left-click on hand tile | Toggle selection (mint-green border appears) |
+| **Rotate Tile** | Right-click on hand tile | Rotate 90° clockwise |
+| **Place Tile** | Left-click on board cell | Place selected tile adjacent to your marker |
+
+### Setup Phase Controls
+
+| Action | Control | Description |
+|--------|---------|-------------|
+| **Move Marker** | Left-click on prompt banner | Cycle your marker clockwise around the border |
+| **Confirm Position** | Right-click on prompt banner | Lock in your starting position |
+
+> **💡 Trackpad Users**: Enable "secondary click" (two-finger tap or bottom-right click) for right-click functionality.
+
+---
+
+## 🚀 Installation
+
+### Prerequisites
+- Python 3.11 or higher
+- pip package manager
+
+### Setup Steps
+
+1. **Clone the repository** (if applicable) or navigate to the project directory:
+   ```bash
+   cd tsuro-master
+   ```
+
+2. **Create a virtual environment**:
+   ```bash
+   python3 -m venv myenv
+   ```
+
+3. **Activate the virtual environment**:
+   ```bash
+   # Linux/macOS
+   source myenv/bin/activate
+   
+   # Windows
+   myenv\Scripts\activate
+   ```
+
+4. **Install dependencies**:
+   ```bash
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+
+5. **Launch the game**:
+   ```bash
+   python game.py
+   ```
+
+### Troubleshooting
+- If the window size seems incorrect, adjust values in `constants.py`
+- Ensure all images are present in the `images/` directory
+- Use Python 3.11+ for best compatibility
+
+---
+
+## ⚙️ Configuration
+
+Customize the game by editing `constants.py`:
+
+```python
+WIN_WIDTH = 1500      # Window width in pixels
+WIN_HEIGHT = 800      # Window height in pixels
+BOARD_LEN = 600       # Board size in pixels
+IMG_DIR = 'images'    # Image assets directory
 ```
 
-Then launch the game:
+### Theme Colors
+The ancient scroll theme uses:
+- **Parchment panels**: `#efe2c2`
+- **Ink borders**: `#5a4a3b`
+- **Player markers**: `#9bc3ab`
+- **Selection highlight**: `#9bc3ab`
 
-```bash
-python game.py
+To customize colors, edit the theme colors in `game_logic.py` (`Game.__init__`) or tile selection colors in `tiles.py` (`Tile.handle_mouse_press`).
+
+---
+
+## 📂 Project Structure
+
+```
+tsuro-master/
+├── game.py              # Entry point - launches the game
+├── game_logic.py        # Core game logic (Game class)
+├── tiles.py             # Tile and Dragon classes
+├── cells.py             # Board cell logic
+├── players.py           # Player marker management
+├── ui_components.py     # Popup dialogs and end-game messages
+├── arcadegraphics.py    # CS110-style graphics shim over Arcade
+├── constants.py         # Configuration constants
+├── helpers.py           # Utility functions (tile path logic)
+├── matches.txt          # Tile connection coordinate data
+├── requirements.txt     # Python dependencies
+└── images/              # Game assets (tiles, board, background)
+    ├── 0.jpg ... 34.jpg # 35 unique tile images
+    ├── dragon.jpg       # Dragon tile
+    ├── board.jpg        # Game board
+    └── bkg2.png         # Background image
 ```
 
-If the window size or assets don’t look right, see Configuration below.
+### Module Responsibilities
 
-## Configuration
+| Module | Purpose |
+|--------|---------|
+| `game_logic.py` | Game state, turn management, player/tile coordination |
+| `tiles.py` | Tile rendering, rotation, selection, path logic |
+| `cells.py` | Board cell click handling and tile placement |
+| `players.py` | Player markers, movement, elimination, prompts |
+| `ui_components.py` | Popup dialogs, winner/tie announcements |
+| `arcadegraphics.py` | Graphics API compatibility layer |
 
-Edit `constants.py` to tweak:
-- `WIN_WIDTH`, `WIN_HEIGHT` — window size
-- `BOARD_LEN` — board graphic size
-- `IMG_DIR` — images folder
+---
 
-Visual & UI notes:
-- Selected tile border color is light blue `#90D5FF`.
-- If you prefer a different selection color or border thickness, change it in `classes.py` (`Tile.handle_mouse_press`).
+## 🎓 Technical Details
 
-## Project Structure
+### Architecture Highlights
+- **Event-driven design**: Mouse events dispatch to top-most clickable shapes
+- **Depth-based z-ordering**: Lower depth values render on top
+- **Dictionary-based pathfinding**: Efficient marker movement using coordinate lookups
+- **Modular class structure**: Each component has a single, clear responsibility
 
-- `game.py` — entry point
-- `game_core.py` — wire-up to `Game` and window creation
-- `classes.py` — main game logic (Game, Player, Tile, Cell, Dragon, Popup)
-- `arcadegraphics.py` — shim providing a cs110graphics-like API on top of Arcade
-- `constants.py` — sizes and assets
-- `images/` — sprites and textures
-- `matches.txt` — tile connection logic
-- `requirements.txt` — Python dependencies
+### Path Algorithm
+The game uses a dictionary-based path-following algorithm:
+- Each board position can connect to up to 2 other positions
+- Two dictionaries (`_loc_dict1`, `_loc_dict2`) store all possible connections
+- Markers follow paths until reaching a dead end or board edge
+- Movement is deterministic and visually smooth
 
-## Credits
+---
 
-- Board game Tsuro designed by Tom McMurchie.
-- This software is for educational/demonstration purposes and is not an official product of the Tsuro IP holders.
+## 🏆 Credits
 
-## Team
-- Thirumurugan RA - 3122235001149
-- Vishal Muralidharan - 3122235001162
+- **Original Game Design**: Tom McMurchie
+- **Implementation**: Educational project showcasing Python game development
+- **Graphics Library**: [Python Arcade](https://api.arcade.academy/) 2.6.17
+
+> ⚠️ **Disclaimer**: This software is for educational and demonstration purposes only and is not affiliated with or endorsed by the creators of Tsuro or its publishers.
+
+---
+
+## 👥 Development Team
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>Thirumurugan RA</strong><br>
+      <sub>Reg No: 3122235001149</sub>
+    </td>
+    <td align="center">
+      <strong>Vishal Muralidharan</strong><br>
+      <sub>Reg No: 3122235001162</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+<div align="center">
+
+**Enjoy the game! 🐉**
+
+*May your path be long and your opponents' paths be short.*
+
+</div>
