@@ -24,7 +24,7 @@ Tsuro (original design by Tom McMurchie) is a beautifully strategic tile-laying 
 - 👥 **2-8 player support** on a single computer
 - 🎯 **Simple, intuitive controls** with mouse-based interaction
 - 🏗️ **Modular architecture** for easy maintenance and extension
-- 🎮 **CS110-style graphics API** built on Python Arcade
+- 🎮 **Lightweight graphics** built on Python Arcade
 
 ## 🎮 How to Play
 
@@ -153,7 +153,7 @@ tsuro-master/
 ├── cells.py             # Board cell logic
 ├── players.py           # Player marker management
 ├── ui_components.py     # Popup dialogs and end-game messages
-├── arcadegraphics.py    # CS110-style graphics shim over Arcade
+├── arcadegraphics.py    # Graphics helper functions using Arcade
 ├── constants.py         # Configuration constants
 ├── helpers.py           # Utility functions (tile path logic)
 ├── matches.txt          # Tile connection coordinate data

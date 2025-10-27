@@ -4,7 +4,6 @@ import arcade.color
 # Simple mouse event object compatible with classes.py expectations
 class _MouseEvent:
     def __init__(self, button):
-        # Use string names similar to cs110graphics
         self._button = button
         self._x = None
         self._y = None
@@ -45,8 +44,7 @@ def _resolve_color(color):
 
 
 def _map_button(button):
-    """Map arcade mouse button constant (int) to cs110graphics-like
-    string names used by the game code.
+    """Map arcade mouse button constant (int) to string names used by the game code.
     Accept common arcade mouse constants; if a string is passed through,
     return it unchanged.
     """
@@ -98,7 +96,7 @@ class Window(arcade.Window):
     def on_mouse_press(self, x, y, button, modifiers):
         """Handle mouse press: deliver to the single top-most shape under the
         cursor. If that shape has no handler, the click is ignored (blocks
-        objects below), matching cs110 behavior.
+        objects below).
         """
         btn_name = _map_button(button)
         cs_x = x
@@ -189,7 +187,7 @@ class Rectangle:
         self._handlers = []
 
     def draw(self):
-        # Convert cs110 (top-left origin) center to arcade coordinates (bottom-left origin)
+        # Convert top-left origin center to arcade coordinates (bottom-left origin)
         arcade_y = self.window.height - self.center_y
         # draw fill if present
         if self.fill_color:
@@ -337,7 +335,6 @@ class Image:
         self._handlers = []
 
     def draw(self):
-        # draw with the exact width/height requested (to match cs110 sizing)
         arcade_y = self.window.height - self.center_y
         # If this is a standard tile image (100x100), draw it slightly inset
         # so that the selection frame drawn behind remains visible.
